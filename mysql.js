@@ -1,6 +1,9 @@
 const mysql = require('mysql');
 const cors = require('cors');
 const express = require('express')
+
+
+
 const connParams = require('./config')
 let array1 = [];
 let citiesJSON;
@@ -9,7 +12,11 @@ const port = 3000
 
 app.use(cors())
 app.use(express.static('public'))
-console.log(connParams.get().host)
+// console.log(connParams.get().host)
+
+
+  
+
 
 const connection = mysql.createConnection(connParams.get());
 connection.connect();
@@ -18,7 +25,7 @@ connection.query('SELECT * FROM `citi` LIMIT 10',  (error, results, fields) => {
   if (error) throw error;
   for(result of results){
     array1.push(result)
-    console.log(result.name)
+    // console.log(result.name)
   }
   
   citiesJSON = JSON.stringify(array1)
@@ -27,16 +34,20 @@ connection.query('SELECT * FROM `citi` LIMIT 10',  (error, results, fields) => {
 
 connection.end()
 
+app.get('/', (req, res) => {
+  
+  console.log('citiesJSON')
+  
+  // console.log(req.headers)
 
+})
 
-app.post('/', (req, res) => {
-  if(req.headers.jaja){
-    res.send('xxx')
-  }else{
-    
+app.get('/x', (req, res) => {
+  
+    console.log('citiesJSON')
     res.json(citiesJSON)
     // console.log(req.headers)
-  }
+  
 })
 
 app.get('/add', (req, res) => {
@@ -69,7 +80,7 @@ app.get('/add', (req, res) => {
       next();
     });
     
-    app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+    app.listen(port, () => console.log('Listen on port 3000'))
     
     
     

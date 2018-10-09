@@ -7,28 +7,8 @@
   <title>Document</title>
 </head>
 <body>
-  
-  <script>
-    const headers = {
-  'Accept': 'application/json',
-  'Authorization': 'token',
-  
-  
-}
-    fetch('http://localhost:3000',  {method:"POST",
-      headers
-    }).then((res) => res.json()).then((cities) => {
-      let x = JSON.parse(cities)
-
-      for(citi of x ){
-        let div = document.createElement('div');
-        div.innerHTML = citi.name;
-        document.getElementsByTagName('body')[0].appendChild(div)
-
-        console.log(citi.name)
-      }
-    })
-  </script>
+  <h1>POLSKA</h1>
+  <script src="./js/app.js"></script>
   
 </body>
 </html>
