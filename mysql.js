@@ -1,7 +1,7 @@
 const mysql = require('mysql');
 const cors = require('cors');
 const express = require('express')
-
+const connParams = require('./config')
 let array1 = [];
 let citiesJSON;
 const app = express()
@@ -9,13 +9,9 @@ const port = 3000
 
 app.use(cors())
 app.use(express.static('public'))
+console.log(connParams.get().host)
 
-const connection = mysql.createConnection({
-  host     : '188.40.110.12',
-  user     : 'pkopy2_bootcamp',
-  password : 'pkopy7603',
-  database : 'pkopy2_bootcamp'
-});
+const connection = mysql.createConnection(connParams.get());
 connection.connect();
 
 connection.query('SELECT * FROM `citi` LIMIT 10',  (error, results, fields) => {
@@ -44,12 +40,7 @@ app.post('/', (req, res) => {
 })
 
 app.get('/add', (req, res) => {
-  const connection = mysql.createConnection({
-    host     : '188.40.110.12',
-    user     : 'pkopy2_bootcamp',
-    password : 'pkopy7603',
-    database : 'pkopy2_bootcamp'
-  });
+  const connection = mysql.createConnection(connParams.get());
   connection.connect()
   
   connection.query("INSERT INTO test (user, age, weight) VALUES ('adam', '10', '50')", (error, result) => {
